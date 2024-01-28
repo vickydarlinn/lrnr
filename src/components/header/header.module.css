@@ -1,7 +1,10 @@
+header {
+  border-bottom: 1px solid #eaeaea;
+  height: 125px;
+}
 .wrapper {
   display: flex;
   padding: 2rem;
-  border: 1px solid black;
   display: flex;
   justify-content: space-between;
   align-items: center;

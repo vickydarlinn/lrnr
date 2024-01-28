@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import styles from "./CollectionTree.module.css";
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
 import { HiPlus } from "react-icons/hi";
@@ -7,21 +7,12 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import Modal from "../../modal";
 import EditorContext from "../../../context/editor/EditorContext";
 
-const CollectionTree = ({ data }) => {
+const CollectionTree = ({ fakeData, setFakeData }) => {
   const [expandedCollections, setExpandedCollections] = useState([]);
-  const [fakeData, setFakeData] = useState(data);
   const [selectedNode, setSelectedNode] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { fetchEditorDataHandler } = useContext(EditorContext);
 
-  useEffect(() => {
-    // Update localStorage when fakeData changes
-    if (fakeData !== null)
-      localStorage.setItem("fakeData", JSON.stringify(fakeData));
-  }, [fakeData]);
-  useEffect(() => {
-    setFakeData(data);
-  }, [data]);
   const toggleExpand = (id) => {
     setExpandedCollections((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
@@ -46,19 +37,12 @@ const CollectionTree = ({ data }) => {
           isCollection: data.isCollection,
           childNode: data.isCollection ? [] : undefined,
         };
+        if (!data.isCollection) {
+          newChildNode.editorData = `<p>Lets learn something new...</p>`;
+        }
         return {
           ...item,
           childNode: [...(item.childNode || []), newChildNode],
-        };
-      } else if (item.isCollection) {
-        // Recursively update child nodes
-        return {
-          ...item,
-          childNode: handleModalSubmit(
-            data,
-            selectedNodeId,
-            item.childNode || []
-          ),
         };
       }
       return item;
@@ -114,9 +98,12 @@ const CollectionTree = ({ data }) => {
                     </div>
                   )}
                 </div>
-                <div style={{ marginLeft: "20px" }}>
+                <div style={{ marginLeft: "20px", marginBottom: "5px" }}>
                   {isCollectionExpanded && (
-                    <CollectionTree data={item?.childNode} />
+                    <CollectionTree
+                      fakeData={item?.childNode}
+                      setFakeData={setFakeData}
+                    />
                   )}
                 </div>
               </div>
@@ -125,11 +112,13 @@ const CollectionTree = ({ data }) => {
             return (
               <div
                 style={{
-                  padding: "5px 0px 5px 5px",
+                  // padding: "5px 0px 5px 5px",
+                  // marginLeft: "20px",
+                  marginBottom: "5px",
                   cursor: "pointer",
                 }}
                 key={item.id}
-                onClick={() => fetchEditorDataHandler(item.editorData)}
+                onClick={() => fetchEditorDataHandler(item)}
               >
                 📄 {item?.name}
               </div>

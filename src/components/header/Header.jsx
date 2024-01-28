@@ -10,8 +10,8 @@ import { useContext } from "react";
 const Header = () => {
   const { handleShowMenu, isShowingMenu } = useContext(NavigationContext);
   return (
-    <>
-      <header className={styles.wrapper}>
+    <header>
+      <div className={styles.wrapper}>
         <span className={styles.icon} onClick={handleShowMenu}>
           <GiHamburgerMenu />
         </span>
@@ -27,9 +27,9 @@ const Header = () => {
           </span>
           <UserProfile />
         </div>
-      </header>
+      </div>
       {isShowingMenu && <SidebarNavigation />}
-    </>
+    </header>
   );
 };
 

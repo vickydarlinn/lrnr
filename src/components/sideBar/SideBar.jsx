@@ -1,5 +1,5 @@
 import styles from "./sideBar.module.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import CollectionTree from "./collectionTree";
 // import { fakeData as data } from "../../utils/fakeData";
 import { HiPlus } from "react-icons/hi";
@@ -11,6 +11,12 @@ const SideBar = () => {
   const [fakeData, setFakeData] = useState(data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { selectedMenu, isShowingMenu } = useContext(NavigationContext);
+
+  useEffect(() => {
+    if (fakeData !== null)
+      localStorage.setItem("fakeData", JSON.stringify(fakeData));
+  }, [fakeData]);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -25,9 +31,11 @@ const SideBar = () => {
       isCollection: data.isCollection,
       childNode: data.isCollection ? [] : undefined,
     };
+    if (!data.isCollection) {
+      newNode.editorData = `<p>Lets learn something new...</p>`;
+    }
     setFakeData((prev) => [...prev, newNode]);
   };
-  console.log(selectedMenu);
 
   return (
     <>
@@ -46,7 +54,7 @@ const SideBar = () => {
                   <HiPlus onClick={openModal} />
                 </span>
               </div>
-              <CollectionTree data={fakeData} />
+              <CollectionTree fakeData={fakeData} setFakeData={setFakeData} />
             </div>
           ) : (
             <div

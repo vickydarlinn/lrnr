@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import styles from "./modal.module.css";
 import { v4 as uuid } from "uuid";
 
 const Modal = ({ isOpen, onClose, onSubmit }) => {
@@ -31,29 +32,11 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   return (
     <>
       {isOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: "1000",
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "20px",
-              borderRadius: "8px",
-              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <h2>Create {type === "file" ? "File" : "Folder"}</h2>
+        <div className={styles.wrapper}>
+          <div className={styles.modal}>
+            <h2 className={styles.heading}>
+              Create {type === "file" ? "File" : "Folder"}
+            </h2>
             <label>
               Name:
               <input type="text" value={name} onChange={handleNameChange} />
@@ -67,8 +50,14 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
               </select>
             </label>
             <br />
-            <button onClick={handleSubmit}>Submit</button>
-            <button onClick={onClose}>Cancel</button>
+            <div className={styles.btns}>
+              <button className={styles.btn} onClick={handleSubmit}>
+                Submit
+              </button>
+              <button className={styles.btn} onClick={onClose}>
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -4,7 +4,9 @@ import EditorContext from "../../context/editor/EditorContext";
 
 function EditorBoard() {
   const editorRef = useRef(null);
-  const { openedFileData } = useContext(EditorContext);
+
+  const { openedFileData, updateEditorData } = useContext(EditorContext);
+  const fakeData = JSON.parse(localStorage.getItem("fakeData"));
 
   useEffect(() => {
     const editor = new MediumEditor(editorRef.current, {
@@ -40,8 +42,8 @@ function EditorBoard() {
     });
 
     // Set initial content (fake data)
-    const initialContent = openedFileData
-      ? openedFileData
+    const initialContent = openedFileData.editorData
+      ? openedFileData.editorData
       : "<p>Start writing your content here...</p>";
     editor.setContent(initialContent);
 
@@ -50,14 +52,15 @@ function EditorBoard() {
       const updatedContent = editor.getContent();
       console.log("Editor content changed:", updatedContent);
       // Store the updated content in your state or handle it as needed
+      updateEditorData(fakeData, openedFileData.id, updatedContent);
     });
 
     return () => editor.destroy();
-  }, [openedFileData]);
+  }, [openedFileData.editorData]);
 
   return (
     <div
-      style={{ padding: "5px" }}
+      style={{ padding: "5px", height: "100%", outline: "none" }}
       ref={editorRef}
       className="editor-container"
     ></div>

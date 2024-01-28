@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  gap: 20px;
+}
+.nav_link {
+  cursor: pointer;
+}
+.active {
+  font-weight: bold;
+}
