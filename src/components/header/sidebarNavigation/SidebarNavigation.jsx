@@ -1,7 +1,7 @@
 import NavigationContext from "../../../context/NavigationContext";
 import { HiDotsVertical } from "react-icons/hi";
 import { useContext } from "react";
-import styles from "./SidebarNavigation.module.css";
+import styles from "./sidebarNavigation.module.css";
 
 const SidebarNavigation = () => {
   const { selectedMenu, handleSelectMenu } = useContext(NavigationContext);
