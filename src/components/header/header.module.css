@@ -1,5 +1,6 @@
 header {
   border-bottom: 1px solid #eaeaea;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   height: 125px;
 }
 .wrapper {

@@ -60,7 +60,7 @@ function EditorBoard() {
 
   return (
     <div
-      style={{ padding: "5px", height: "100%", outline: "none" }}
+      style={{ padding: "30px", height: "100%", outline: "none" }}
       ref={editorRef}
       className="editor-container"
     ></div>
