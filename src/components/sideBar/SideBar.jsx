@@ -1,21 +1,21 @@
 import styles from "./sideBar.module.css";
 import { useState, useContext, useEffect } from "react";
 import CollectionTree from "./collectionTree";
-// import { fakeData as data } from "../../utils/fakeData";
 import { HiPlus } from "react-icons/hi";
 import Modal from "../modal";
 import NavigationContext from "../../context/NavigationContext";
+import NodesDataContext from "../../context/nodesData/NodesDataContext";
 
 const SideBar = () => {
-  const data = JSON.parse(localStorage.getItem("fakeData"));
-  const [fakeData, setFakeData] = useState(data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { selectedMenu, isShowingMenu } = useContext(NavigationContext);
+  const { fakeData, setFakeData } = useContext(NodesDataContext);
 
-  useEffect(() => {
-    if (fakeData !== null)
-      localStorage.setItem("fakeData", JSON.stringify(fakeData));
-  }, [fakeData]);
+  // useEffect(() => {
+  //   if (fakeData !== null && fakeData !== undefined) {
+  //     localStorage.setItem("fakeData", JSON.stringify(fakeData));
+  //   }
+  // }, [fakeData]);
 
   const openModal = () => {
     setIsModalOpen(true);

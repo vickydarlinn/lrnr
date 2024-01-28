@@ -15,17 +15,21 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     setType(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     // You can perform additional validation here if needed
     if (!name) {
       alert("Please enter a name");
     }
+
     onSubmit({
       name,
       type,
       id: uuid(),
       isCollection: type === "folder" ? true : false,
     });
+    setName("");
+    setType("file");
     onClose();
   };
 
@@ -33,7 +37,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     <>
       {isOpen && (
         <div className={styles.wrapper}>
-          <div className={styles.modal}>
+          <form className={styles.modal} onSubmit={handleSubmit}>
             <h2 className={styles.heading}>
               Create {type === "file" ? "File" : "Folder"}
             </h2>
@@ -51,14 +55,14 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
             </label>
             <br />
             <div className={styles.btns}>
-              <button className={styles.btn} onClick={handleSubmit}>
+              <button type="submit" className={styles.btn}>
                 Submit
               </button>
               <button className={styles.btn} onClick={onClose}>
                 Cancel
               </button>
             </div>
-          </div>
+          </form>
         </div>
       )}
     </>

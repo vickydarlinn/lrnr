@@ -1,12 +1,13 @@
 import { useEffect, useRef, useContext } from "react";
 import MediumEditor from "medium-editor";
 import EditorContext from "../../context/editor/EditorContext";
+import NodesDataContext from "../../context/nodesData/NodesDataContext";
 
 function EditorBoard() {
   const editorRef = useRef(null);
 
   const { openedFileData, updateEditorData } = useContext(EditorContext);
-  const fakeData = JSON.parse(localStorage.getItem("fakeData"));
+  const { fakeData, setFakeData } = useContext(NodesDataContext);
 
   useEffect(() => {
     const editor = new MediumEditor(editorRef.current, {
@@ -50,9 +51,13 @@ function EditorBoard() {
     // Handle content changes
     editor.subscribe("editableInput", (eventData) => {
       const updatedContent = editor.getContent();
-      console.log("Editor content changed:", updatedContent);
       // Store the updated content in your state or handle it as needed
-      updateEditorData(fakeData, openedFileData.id, updatedContent);
+      const updatedData = updateEditorData(
+        fakeData,
+        openedFileData.id,
+        updatedContent
+      );
+      setFakeData(updatedData);
     });
 
     return () => editor.destroy();

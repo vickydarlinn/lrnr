@@ -45,6 +45,12 @@ const CollectionTree = ({ fakeData, setFakeData }) => {
           childNode: [...(item.childNode || []), newChildNode],
         };
       }
+      if (item.childNode && item.childNode.length > 0) {
+        return {
+          ...item,
+          childNode: handleModalSubmit(data, selectedNodeId, item.childNode),
+        };
+      }
       return item;
     });
   };
@@ -78,7 +84,11 @@ const CollectionTree = ({ fakeData, setFakeData }) => {
                   <div
                     onClick={() => toggleExpand(item.id)}
                     className={isCollectionExpanded ? styles.bold : null}
-                    style={{ display: "flex", alignItems: "center" }}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      cursor: "pointer",
+                    }}
                   >
                     {isCollectionExpanded ? (
                       <MdKeyboardArrowDown />

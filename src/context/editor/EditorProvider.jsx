@@ -10,9 +10,7 @@ const EditorProvider = ({ children }) => {
   };
 
   const updateEditorData = (nodes, idToUpdate, newEditorData) => {
-    console.log(idToUpdate);
     for (const item of nodes) {
-      console.log(item.id, idToUpdate);
       if (item.id == idToUpdate) {
         item.editorData = newEditorData;
         localStorage.setItem("fakeData", JSON.stringify(nodes));
@@ -22,6 +20,7 @@ const EditorProvider = ({ children }) => {
         updateEditorData(item.childNode, idToUpdate, newEditorData);
       }
     }
+    return nodes;
   };
 
   return (
