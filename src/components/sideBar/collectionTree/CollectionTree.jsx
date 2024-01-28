@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useContext } from "react";
-import styles from "./CollectionTree.module.css";
+import styles from "./collectionTree.module.css";
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
 import { HiPlus } from "react-icons/hi";
 import { BsThreeDotsVertical } from "react-icons/bs";
