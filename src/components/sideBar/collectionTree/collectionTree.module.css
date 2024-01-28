@@ -1,0 +1,12 @@
+.bold {
+  /* font-weight: 700; */
+  font-weight: 400;
+  color: black;
+}
+.wrapper {
+  /* border: 1px solid red; */
+}
+.container_node {
+  /* border: 1px solid green; */
+  /* display: flex; */
+}
