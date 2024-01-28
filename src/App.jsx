@@ -1,8 +1,18 @@
 import SideBar from "./components/sideBar";
 import Header from "./components/header/Header";
-import Editor from "./components/editor/Editor";
+import "medium-editor/dist/css/medium-editor.css";
+import "medium-editor/dist/css/themes/default.css";
+import EditorBoard from "./components/editor/EditorBoard";
+import { useEffect } from "react";
+import { fakeData } from "./utils/fakeData";
 
 const App = () => {
+  useEffect(() => {
+    console.log("hello");
+
+    if (!localStorage.getItem("fakeData"))
+      localStorage.setItem("fakeData", JSON.stringify(fakeData));
+  }, []);
   return (
     <main>
       <Header />
@@ -10,12 +20,11 @@ const App = () => {
       <div
         className="editor"
         style={{
-          border: "2px solid blue",
+          border: "1px solid blue",
           marginLeft: "300px",
-          paddingLeft: `55px`,
         }}
       >
-        <Editor editorblock="editorjs-container" />
+        <EditorBoard />
       </div>
     </main>
   );

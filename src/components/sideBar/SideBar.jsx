@@ -1,12 +1,13 @@
 import styles from "./sideBar.module.css";
 import { useState, useContext } from "react";
 import CollectionTree from "./collectionTree";
-import { fakeData as data } from "../../utils/fakeData";
+// import { fakeData as data } from "../../utils/fakeData";
 import { HiPlus } from "react-icons/hi";
 import Modal from "../modal";
 import NavigationContext from "../../context/NavigationContext";
 
 const SideBar = () => {
+  const data = JSON.parse(localStorage.getItem("fakeData"));
   const [fakeData, setFakeData] = useState(data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { selectedMenu, isShowingMenu } = useContext(NavigationContext);

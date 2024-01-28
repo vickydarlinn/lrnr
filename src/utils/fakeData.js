@@ -96,19 +96,6 @@ export const fakeData = [
     name: "collection.3.1",
     id: uuid(),
     isCollection: false,
-    editorData: {
-      time: 1706378563740,
-      blocks: [
-        {
-          id: "NpuR8pSveD",
-          type: "header",
-          data: {
-            text: "Welcome to lrnr!",
-            level: 1,
-          },
-        },
-      ],
-      version: "2.29.0",
-    },
+    editorData: "<p>Welcome to  <strong>Lrnr</strong></p>",
   },
 ];

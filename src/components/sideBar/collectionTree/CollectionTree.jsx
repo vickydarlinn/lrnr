@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useContext } from "react";
 import styles from "./CollectionTree.module.css";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowRight, MdKeyboardArrowDown } from "react-icons/md";
 import { HiPlus } from "react-icons/hi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Modal from "../../modal";
@@ -15,6 +14,14 @@ const CollectionTree = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { fetchEditorDataHandler } = useContext(EditorContext);
 
+  useEffect(() => {
+    // Update localStorage when fakeData changes
+    if (fakeData !== null)
+      localStorage.setItem("fakeData", JSON.stringify(fakeData));
+  }, [fakeData]);
+  useEffect(() => {
+    setFakeData(data);
+  }, [data]);
   const toggleExpand = (id) => {
     setExpandedCollections((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
@@ -43,23 +50,27 @@ const CollectionTree = ({ data }) => {
           ...item,
           childNode: [...(item.childNode || []), newChildNode],
         };
+      } else if (item.isCollection) {
+        // Recursively update child nodes
+        return {
+          ...item,
+          childNode: handleModalSubmit(
+            data,
+            selectedNodeId,
+            item.childNode || []
+          ),
+        };
       }
       return item;
     });
   };
 
-  useEffect(() => {
-    setFakeData(data);
-  }, [data]);
-
   const handleModalSubmitAndUpdate = (data) => {
     setFakeData((prevData) => handleModalSubmit(data, selectedNode, prevData));
-    localStorage.setItem("fakeData", JSON.stringify(fakeData));
   };
 
   return (
     <>
-      {/* {console.log(expandedCollections)} */}
       <Modal
         isOpen={isModalOpen}
         onClose={closeModal}
