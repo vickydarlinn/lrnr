@@ -57,6 +57,10 @@ const CollectionTree = ({ fakeData, setFakeData }) => {
 
   const handleModalSubmitAndUpdate = (data) => {
     setFakeData((prevData) => handleModalSubmit(data, selectedNode, prevData));
+    localStorage.setItem(
+      "fakeData",
+      JSON.stringify(handleModalSubmit(data, selectedNode, fakeData))
+    );
   };
 
   return (

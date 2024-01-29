@@ -1,5 +1,5 @@
 import styles from "./sideBar.module.css";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import CollectionTree from "./collectionTree";
 import { HiPlus } from "react-icons/hi";
 import Modal from "../modal";
@@ -10,12 +10,6 @@ const SideBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { selectedMenu, isShowingMenu } = useContext(NavigationContext);
   const { fakeData, setFakeData } = useContext(NodesDataContext);
-
-  // useEffect(() => {
-  //   if (fakeData !== null && fakeData !== undefined) {
-  //     localStorage.setItem("fakeData", JSON.stringify(fakeData));
-  //   }
-  // }, [fakeData]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -35,6 +29,7 @@ const SideBar = () => {
       newNode.editorData = `<p>Lets learn something new...</p>`;
     }
     setFakeData((prev) => [...prev, newNode]);
+    localStorage.setItem("fakeData", JSON.stringify([...fakeData, newNode]));
   };
 
   return (
